@@ -61,6 +61,6 @@ jobs:
           cd gitops-repo
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add nginx-deployment.yaml
+          git add nginx.yaml
           git commit -m "Update image to ${{ env.IMAGE_TAG }}"
           git push origin develop
