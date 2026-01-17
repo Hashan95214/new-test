@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: install docker
-      run: apt install docker
+      run: sudo apt install docker
 
     - name: actions/checkout@v4
       run: ls
