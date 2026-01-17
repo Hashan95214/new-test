@@ -6,21 +6,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: remove containerd
-      run: sudo apt remove -y containerd
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: update OS
-      run: sudo apt update
+      - name: Show Docker version
+        run: docker --version
 
-    - name: install docker
-      run: sudo apt install -y docker.io
+      - name: Read Dockerfile
+        run: cat Dockerfile
 
-    - name: actions/checkout@v4
-      run: ls
-
-    - name: read the docker file
-      run: cat Dockerfile
-
-    - name: build the image from the docker file
-      run: docker build -t nginx:v4 .
+      - name: Build Docker image
+        run: docker build -t nginx:v4 .
       
