@@ -53,7 +53,7 @@ jobs:
       - name: Update Deployment YAML with new image
         run: |
           DEPLOY_FILE=gitops-repo/nginx.yaml
-          sed -i "s|image:.*|image: ${{ env.IMAGE_TAG }}|g" $DEPLOY_FILE
+          sed -i "s|^\s*image:.*|image: ${{ env.IMAGE_TAG }}|" $DEPLOY_FILE
           cat $DEPLOY_FILE
 
       - name: Commit and push changes
