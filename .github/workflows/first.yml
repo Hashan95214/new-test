@@ -20,47 +20,23 @@ jobs:
       - name: Build Docker image
         run: docker build -t nginx:develop .
 
-      - name: Save image as artifact
-        run: |
-          docker save nginx:develop | gzip > nginx-develop.tar.gz
-
-      - name: Upload image artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: nginx-image
-          path: nginx-develop.tar.gz
-
-  push:
-    name: Push Image to GitHub Container Registry
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - name: Download built Docker image
-        uses: actions/download-artifact@v4
-        with:
-          name: nginx-image
-
-      - name: Load Docker image
-        run: gunzip -c nginx-develop.tar.gz | docker load
-
-      - name: Log in to GitHub Container Registry
+      - name: Log in to GHCR
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Tag Docker image for GHCR
+      - name: Tag Docker image
         run: docker tag nginx:develop ghcr.io/hashan95214/gitops-repo-sampath:develop
 
-      - name: Push Docker image to GHCR
+      - name: Push Docker image
         run: docker push ghcr.io/hashan95214/gitops-repo-sampath:develop
 
   update-deployment:
     name: Update Deployment YAML
     runs-on: ubuntu-latest
-    needs: build-and-push
+    needs: build
 
     steps:
       - name: Checkout GitOps repo
@@ -75,7 +51,6 @@ jobs:
         run: |
           DEPLOY_FILE=gitops-repo/nginx-deployment.yaml
           IMAGE_NAME=ghcr.io/hashan95214/gitops-repo-sampath:develop
-          # Replace the old image line with the new image
           sed -i "s|image:.*|image: $IMAGE_NAME|g" $DEPLOY_FILE
           cat $DEPLOY_FILE
 
@@ -87,4 +62,3 @@ jobs:
           git add nginx-deployment.yaml
           git commit -m "Update image to $IMAGE_NAME"
           git push origin develop
-      
