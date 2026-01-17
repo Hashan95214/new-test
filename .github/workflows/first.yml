@@ -8,6 +8,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: develop
 
       - name: Show Docker version
         run: docker --version
@@ -17,5 +19,5 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t nginx:v4 .
-        
+
       
