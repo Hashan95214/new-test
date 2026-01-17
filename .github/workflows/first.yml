@@ -6,6 +6,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: remove containerd
+      run: sudo apt remove -y containerd
+      
     - name: install docker
       run: sudo apt install -y docker.io
 
