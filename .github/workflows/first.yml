@@ -1,14 +1,20 @@
-name: my first
+name: my first job
+
 on: push
+
 jobs:
-  first-job:
+  build:
     runs-on: ubuntu-latest
-    steps: 
-    - name: welcome
-      run: echo "welcome"
-    - name: list
+    steps:
+    - name: install docker
+      run: apt install docker
+
+    - name: actions/checkout@v4
       run: ls
 
-    - name: cat
-      run: cat README.txt
+    - name: read the docker file
+      run: cat Dockerfile
+
+    - name: build the image from the docker file
+      run: docker build -t nginx:v4 .
       
