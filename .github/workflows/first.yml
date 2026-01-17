@@ -29,7 +29,7 @@ jobs:
 
       - name: Tag Docker image with commit SHA
         run: |
-          IMAGE_TAG=ghcr.io/hashan95214/nginx-deploy:${GITHUB_SHA::7}
+          IMAGE_TAG=ghcr.io/hashan95214/nginx.yaml:${GITHUB_SHA::7}
           docker tag nginx:develop $IMAGE_TAG
           echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
 
