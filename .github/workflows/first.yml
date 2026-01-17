@@ -32,7 +32,7 @@ jobs:
 
       - name: Push Docker image
         run: docker push ghcr.io/hashan95214/gitops-repo-sampath:develop
-        
+
 
   update-deployment:
     name: Update Deployment YAML
@@ -63,3 +63,4 @@ jobs:
           git add nginx-deployment.yaml
           git commit -m "Update image to $IMAGE_NAME"
           git push origin develop
+          
