@@ -52,7 +52,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Tag Docker image for GHCR
-        run: docker tag nginx:develop ghcr.io/Hashan95214/gitops-repo-sampath:develop
+        run: docker tag nginx:develop ghcr.io/hashan95214/gitops-repo-sampath:develop
 
       - name: Push Docker image to GHCR
         run: docker push ghcr.io/Hashan95214/gitops-repo-sampath:develop
