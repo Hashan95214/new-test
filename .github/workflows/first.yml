@@ -1,9 +1,6 @@
 name: Build Docker & Update Deployment
 
-on:
-  push:
-    branches:
-      - develop
+on: push
 
 jobs:
   build-and-push:
