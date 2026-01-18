@@ -56,8 +56,8 @@ jobs:
       - name: Commit and push changes
         run: |
           cd gitops-repo
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          git config user.name "hashan"
+          git config user.email "gunarathna.pwhm@gmail.com"
           git add nginx.yaml
           git commit -m "Update image to ${{ needs.build-and-push.outputs.image_tag }}" || echo "No changes"
           git push origin develop
